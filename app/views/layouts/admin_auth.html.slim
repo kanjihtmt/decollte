@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    /= display_meta_tags default_meta_tags
+    = csrf_meta_tags
+    = stylesheet_link_tag 'admin', media: 'all'
+    = javascript_include_tag 'application'
+    meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
+
+  body
+    div.container
+      .col-md-4.col-md-offset-4
+        .panel.panel-default
+          = yield

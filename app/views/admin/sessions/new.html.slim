@@ -1,0 +1,32 @@
+
+.panel-heading
+  h3.panel-title = 'ログイン'
+  .reset-password
+    | パスワードの再設定は
+    = link_to 'こちら', admin_password_new_path
+    | から
+
+.panel-body
+  .font-sm
+    /= render 'shared/flash'
+
+  = form_for(resource, as: resource_name, url: admin_login_path) do |f|
+
+    /= render 'shared/errors', record: resource
+
+    span.font-sm ID、パスワードを入力して下さい。
+
+    .form-group
+      .input-group
+        span.input-group-addon
+          i.fa.fa-user
+        = f.text_field :username, placeholder: "ID", autofocus: true, class: 'form-control'
+
+    .form-group
+      .input-group
+        span.input-group-addon
+          i.fa.fa-lock
+        = f.password_field :password, placeholder: "パスワード", autocomplete: 'off', class: 'form-control'
+
+    .actions.text-center
+      = f.submit 'ログイン', class: 'btn btn-primary btn-lg btn-block'
