@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    models:
+      brand: ブランド
+    attributes:
+      brand:
+        name: ブランド名

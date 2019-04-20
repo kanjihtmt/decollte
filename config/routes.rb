@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  #get '/admin', to: 'admin/brands#index'
   root 'brands#index'
 
   namespace :admin do
@@ -9,12 +8,14 @@ Rails.application.routes.draw do
       get 'login'         => 'sessions#new'
       post 'login'        => 'sessions#create'
       get 'logout'        => 'sessions#destroy'
-      get 'password/new'  => 'passwords#new'
-      post 'password'     => 'passwords#create'
-      get 'password/edit' => 'passwords#edit'
-      put 'password'      => 'passwords#update'
-      resources :registrations
+      #get 'password/new'  => 'passwords#new'
+      #post 'password'     => 'passwords#create'
+      #get 'password/edit' => 'passwords#edit'
+      #put 'password'      => 'passwords#update'
+      #resources :registrations
     end
+
+    resources :brands, except: %i(destroy)
   end
 
 

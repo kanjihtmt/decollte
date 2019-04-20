@@ -473,3 +473,35 @@ table.table
   background-color: #fdfdfd
   display: flex
   justify-content: cente
+
+.org_info
+  .mol_info
+    margin-bottom: 1.5rem
+    >dt
+      margin-bottom: .3rem
+      color: gray
+      font-size: .875rem
+      font-weight: 400
+    >dd
+      font-size: 1.125rem
+      margin-left: .625rem
+      line-height: 1.8
+      >.m_title
+        font-weight: 600
+        margin: .5rem 0
+
+.org_info_btns
+  width: 100%
+  margin-top: 2rem
+  .mol_info_btns
+    display: flex
+    justify-content: center
+    .atm_info_btn
+      &:not(:last-child)
+        margin-right: 10px
+      .btn
+        min-width: 120px
+
+.alert-danger
+  ul
+    margin: 0 !important

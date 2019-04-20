@@ -9,15 +9,23 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'bootsnap', '>= 1.1.0', require: false
-
 gem 'slim-rails'
 gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-sass', '~> 5.0.6'
 gem 'jquery-rails'
 gem 'devise'
+gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
+gem 'active_decorator'
+gem 'enum_help'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-byebug'
+  gem 'pry-stack_explorer'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'capybara'
 end
 
 group :development do
@@ -25,10 +33,16 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'bullet'
 end
 
-group :development do
-
+group :test do
+  gem 'spring-commands-rspec'
+  gem 'rails-controller-testing'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

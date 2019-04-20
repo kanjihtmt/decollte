@@ -1,3 +1,25 @@
-h1 ログアウト
+h1 ブランド一覧
 
-p = link_to 'ログアウト', admin_logout_path
+.org_headArea
+  .row.justify-content-center
+    .col-md-4
+      = link_to '新規作成', new_admin_brand_path, class: 'btn btn-lg btn-success mb-4'
+    .col-md-4.align-self-end
+      .org_pagenate-top = paginate @brands, theme: 'twitter-bootstrap-4'
+    .col-md-4
+      .m_dummy-column
+
+table.table.table-hover
+  thead.thead-inverse
+    tr
+      th ID
+      th ブランド名
+      th
+
+  tbody
+    - @brands.each do |brand|
+      tr
+        td width="5%" = brand.id
+        td width="75%" = brand.name
+        td width="20%"
+          = link_to '編集', edit_admin_brand_path(brand), { class: 'btn btn-outline-success btn-sm' }
