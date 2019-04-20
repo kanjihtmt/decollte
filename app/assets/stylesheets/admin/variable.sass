@@ -1,0 +1,83 @@
+/* variable */
+
+// max
+$bp_xs: 575px
+
+// min
+$bp_sm: 576px
+$bp_md: 768px
+$bp_lg: 992px
+$bp_xl: 1200px
+
+// Colors
+$brand: #28c3cd
+$brand_text: #00B2BF
+
+@mixin brandColor
+  color: $brand
+
+@mixin brandColor_text
+  color: $brand_text
+
+@mixin bg_brand
+  background-color: $brand
+
+.brand
+  @include brandColor
+.brand_text
+  @include brandColor_text
+
+.bg_brand
+  @include bg_brand
+
+$black: #002832
+$gray: #405E66
+$bold: 600
+$borderColor: #ced4da
+$bs_border: #dee2e6
+
+.darken
+  color: darken($brand, 15%)
+
+@mixin darken
+  color: darken($brand, 15%)
+
+@mixin bg_darken
+  background-color: darken($brand, 15%)
+
+// Text
+.nowrap
+  white-space: nowrap
+  @media (max-width: 960px)
+    white-space: inherit
+
+.tex_center
+  text-align: center
+
+.btn-primary
+  background-color: desaturate(#007bff, 33%)
+  border-color: desaturate(#007bff, 33%)
+
+.btn-outline-primary
+  color: desaturate(#007bff, 25%)
+  border-color: desaturate(#007bff, 25%)
+
+.btn-success
+  background-color: desaturate(#28a745, 20%)
+  border-color: desaturate(#28a745, 20%)
+
+.btn-outline-success
+  color: desaturate(#28a745, 25%)
+  border-color: desaturate(#28a745, 25%)
+
+.btn-outline-danger
+  color: desaturate(#dc3545, 20%)
+  border-color: desaturate(#dc3545, 20%)
+
+.btn-outline-secondary
+  color: desaturate(#6c757d, 25%)
+  border-color: desaturate(#6c757d, 25%)
+
+.btn-outline-info
+  color: desaturate(#17a2b8, 25%)
+  border-color: desaturate(#17a2b8, 25%)

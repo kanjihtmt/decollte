@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  #get '/admin', to: 'admin/brands#index'
+  root 'brands#index'
+
   namespace :admin do
     root 'brands#index'
     devise_for :administrators, skip: :all
@@ -13,6 +16,7 @@ Rails.application.routes.draw do
       resources :registrations
     end
   end
+
 
   resources :brands
   scope '/:brand' do
