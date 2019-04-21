@@ -8,4 +8,8 @@ describe Brand do
       end
     end
   end
+
+  describe 'relations' do
+    it { is_expected.to have_many(:shops) }
+  end
 end

@@ -41,6 +41,6 @@ class Admin::ShopsController < Admin::BaseController
     end
 
     def shop_params
-      params.require(:shop).permit(:name)
+      params.require(:shop).permit(:brand_id, :name)
     end
 end
