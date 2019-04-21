@@ -1,18 +1,13 @@
-
 .panel-heading
   h3.panel-title = 'ログイン'
-  .reset-password
-    | パスワードの再設定は
-    = link_to 'こちら', admin_password_new_path
-    | から
 
 .panel-body
   .font-sm
-    /= render 'shared/flash'
+    = render 'shared/flash'
 
   = form_for(resource, as: resource_name, url: admin_login_path) do |f|
 
-    /= render 'shared/errors', record: resource
+    = render 'shared/errors', record: resource
 
     span.font-sm ID、パスワードを入力して下さい。
 
