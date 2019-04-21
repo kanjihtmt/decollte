@@ -42,6 +42,7 @@ jobs:
           command: bundle exec rubocop
 
       # Database setup
+      - run: mv config/database.yml.ci config/database.yml
       - run: RAILS_ENV=test bundle exec rails db:create db:schema:load
 
       # run tests!
