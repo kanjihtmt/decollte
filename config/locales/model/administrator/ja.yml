@@ -1,0 +1,16 @@
+ja:
+  activerecord:
+    models:
+      administrator: 管理者
+    attributes:
+      administrator:
+        username: アカウント名
+        password: パスワード
+
+  can_not_only_admin_user_error: 最後の特権管理者を削除することはできません
+
+  enums:
+    administrator:
+      role:
+        normal: 一般管理者
+        admin: 特権管理者
