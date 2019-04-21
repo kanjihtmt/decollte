@@ -36,7 +36,7 @@ describe Admin::BrandsController do
   end
 
   describe 'GET #new' do
-    it '@brandに空の`お医者さん`を割り当てること' do
+    it '@brandに空のデータが割り当てられていること' do
       get :new
       expect(assigns(:brand)).to be_a_new(Brand)
     end
@@ -49,7 +49,7 @@ describe Admin::BrandsController do
 
   describe 'POST #create' do
     context '正常系' do
-      it 'Brandが正しく登録されていること' do
+      it 'ブランドが正しく登録されていること' do
         expect { post :create, params: { brand: attributes_for(:brand) } }
             .to change(Brand, :count).by(1)
       end
