@@ -26,7 +26,7 @@ class Admin::AdministratorsController < Admin::BaseController
   def update
     if @administrator.update(administrator_params)
       redirect_to admin_administrators_path,
-                  notice: t(:update, scope: 'flash_message', model: Administrator.model_name.human)
+        notice: t(:update, scope: 'flash_message', model: Administrator.model_name.human)
     else
       render :edit
     end
@@ -45,9 +45,7 @@ class Admin::AdministratorsController < Admin::BaseController
     end
 
     def check_admin
-      if @administrator.admin? && Administrator.admin.count == 1
-        redirect_to admin_administrators_path, notice: t(:can_not_only_admin_user_error)
-      end
+      redirect_to admin_administrators_path, notice: t(:can_not_only_admin_user_error) if @administrator.admin? && Administrator.admin.count == 1
     end
 
     def administrator_params
