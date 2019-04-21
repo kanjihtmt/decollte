@@ -19,9 +19,12 @@ gem 'bootstrap4-kaminari-views'
 gem 'active_decorator'
 gem 'enum_help'
 gem 'seed-fu'
+gem 'acts_as_list'
+gem 'pundit'
+gem 'rubocop', require: false
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i(mri mingw x64_mingw)
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
   gem 'pry-rails'
@@ -48,4 +51,4 @@ group :test do
   gem 'shoulda-matchers'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw jruby)

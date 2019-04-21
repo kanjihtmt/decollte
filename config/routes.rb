@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    namespace :sortable do
+      get 'shops/update'
+    end
+  end
   root 'brands#index'
 
   namespace :admin do
@@ -9,8 +14,15 @@ Rails.application.routes.draw do
       post 'login' => 'sessions#create'
       get 'logout' => 'sessions#destroy'
     end
-    resources :brands, except: %i(show destroy)
-    resources :shops, except: %i(show)
+    namespace :sortable do
+      resources :brand, only: [] do
+        resources :shops, only: %i(update)
+      end
+    end
+    resources :brands, except: %i(show destroy) do
+      resources :shops, except: %i(show)
+    end
+    resources :administrators, except: %i(show)
   end
 
   resources :brands, only: %i(index)

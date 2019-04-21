@@ -13,7 +13,6 @@
 
         - if brand.persisted?
           .atm_info_btn = link_to '一覧へ戻る', admin_brands_path, class: 'btn btn-outline-secondary'
-          .atm_info_btn = link_to '詳細', brand, class: 'btn btn-outline-info'
           .atm_info_btn = f.button '更新', class: 'btn btn-success'
         - else
           .atm_info_btn = link_to '一覧へ戻る', admin_brands_path, class: 'btn btn-outline-secondary'

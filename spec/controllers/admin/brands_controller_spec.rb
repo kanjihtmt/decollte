@@ -28,7 +28,7 @@ describe Admin::BrandsController do
       expect(assigns(:brands).count).to eq(25)
       expect(assigns(:brands).next_page).to eq(2)
 
-      get :index, { params: { page: 2 }}
+      get :index, { params: { page: 2 } }
       expect(assigns(:brands).count).to eq(25)
       expect(assigns(:brands).next_page).to eq(nil)
       expect(assigns(:brands).prev_page).to eq(1)

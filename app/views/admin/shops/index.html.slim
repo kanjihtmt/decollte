@@ -1,27 +1,34 @@
-h1 店舗一覧
+h1 = "#{@brand.name}の店舗一覧"
 
 .org_headArea
   .row.justify-content-center
     .col-md-4
-      = link_to '新規作成', new_admin_shop_path, class: 'btn btn-lg btn-success mb-4'
+      = link_to '新規作成', new_admin_brand_shop_path(@brand), class: 'btn btn-lg btn-success mb-4'
     .col-md-4.align-self-end
       .org_pagenate-top = paginate @shops, theme: 'twitter-bootstrap-4'
     .col-md-4
       .m_dummy-column
 
+
+p 店舗の並び順を変更する場合は、変更したい店舗をドラックアンドドロップで移動させてください。
+
 table.table.table-hover
   thead.thead-inverse
     tr
       th ID
+      th ブランド名
       th 店舗名
       th
 
-  tbody
+  tbody#sortable_list
     - @shops.each do |shop|
-      tr
+      tr data-id=shop.id
         td width="5%" = shop.id
-        td width="75%" = shop.name
+        td width="25%" = shop.brand&.name
+        td width="50%" = shop.name
         td width="20%"
-          = link_to '編集', edit_admin_shop_path(shop), { class: 'btn btn-outline-success btn-sm' }
-          = link_to '削除', admin_shop_path(shop), class: 'btn btn-outline-danger btn-sm', method: :delete,
+          = link_to '編集', edit_admin_brand_shop_path(@brand, shop), { class: 'btn btn-outline-success btn-sm' }
+          = link_to '削除', admin_brand_shop_path(@brand, shop), class: 'btn btn-outline-danger btn-sm', method: :delete,
                   data: { confirm: '本当に削除してよろしいですか？', cancel: "キャンセル", commit: "削除する", title: "確認" }
+
+  = hidden_field_tag :brand_id, @brand.id

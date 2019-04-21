@@ -1,0 +1,87 @@
+AllCops:
+  Exclude:
+    - bin/*
+    - db/schema.rb
+    - db/migrate/*
+    - spec/rails_helper.rb
+    - spec/spec_helper.rb
+    - config/**/*
+    - vendor/**/*
+
+PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%i': ()
+    '%w': ()
+
+Rails:
+  Enabled: true
+
+Bundler/OrderedGems:
+  Enabled: false
+
+AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/IndentationConsistency:
+  EnforcedStyle: rails
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/BracesAroundHashParameters:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/RedundantFreeze:
+  Enabled: false
+
+Style/StringLiterals:
+  Exclude:
+    - config/**/*
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+#Style/MixinUsage:
+#  Exclude:
+#    - app/controllers/application_controller.rb
+
+Style/MultilineTernaryOperator:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/LineLength:
+  Enabled: false
+
+ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+    - config/**/*
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+
+Naming/UncommunicativeMethodParamName:
+  MinNameLength: 1
