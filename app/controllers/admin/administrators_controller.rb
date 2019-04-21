@@ -1,5 +1,6 @@
 class Admin::AdministratorsController < Admin::BaseController
   before_action :set_administrator, only: %i(edit update destroy)
+  before_action :authorize_administrator, only: %i(index new create)
   before_action :check_admin, only: %i(destroy)
 
   def index
@@ -42,10 +43,15 @@ class Admin::AdministratorsController < Admin::BaseController
 
     def set_administrator
       @administrator = Administrator.find(params[:id])
+      authorize @administrator
     end
 
     def check_admin
       redirect_to admin_administrators_path, notice: t(:can_not_only_admin_user_error) if @administrator.admin? && Administrator.admin.count == 1
+    end
+
+    def authorize_administrator
+      authorize Administrator
     end
 
     def administrator_params

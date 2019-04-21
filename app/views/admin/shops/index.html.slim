@@ -3,7 +3,10 @@ h1 = "#{@brand.name}の店舗一覧"
 .org_headArea
   .row.justify-content-center
     .col-md-4
-      = link_to '新規作成', new_admin_brand_shop_path(@brand), class: 'btn btn-lg btn-success mb-4'
+      - if current_admin_administrator.admin?
+        = link_to '新規作成', new_admin_brand_shop_path(@brand), class: 'btn btn-lg btn-success mb-4'
+      - else
+        .m_dummy-column
     .col-md-4.align-self-end
       .org_pagenate-top = paginate @shops, theme: 'twitter-bootstrap-4'
     .col-md-4
@@ -27,8 +30,10 @@ table.table.table-hover
         td width="25%" = shop.brand&.name
         td width="50%" = shop.name
         td width="20%"
-          = link_to '編集', edit_admin_brand_shop_path(@brand, shop), { class: 'btn btn-outline-success btn-sm' }
-          = link_to '削除', admin_brand_shop_path(@brand, shop), class: 'btn btn-outline-danger btn-sm', method: :delete,
-                  data: { confirm: '本当に削除してよろしいですか？', cancel: "キャンセル", commit: "削除する", title: "確認" }
+          - if policy(shop).edit?
+            = link_to '編集', edit_admin_brand_shop_path(@brand, shop), { class: 'btn btn-outline-success btn-sm' }
+          - if policy(shop).destroy?
+            = link_to '削除', admin_brand_shop_path(@brand, shop), class: 'btn btn-outline-danger btn-sm', method: :delete,
+                data: { confirm: '本当に削除してよろしいですか？', cancel: "キャンセル", commit: "削除する", title: "確認" }
 
   = hidden_field_tag :brand_id, @brand.id

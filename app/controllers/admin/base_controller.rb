@@ -1,4 +1,5 @@
 class Admin::BaseController < ApplicationController
+  include Pundit
   layout 'admin'
 
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -17,5 +18,9 @@ class Admin::BaseController < ApplicationController
       else
         redirect_to admin_login_path
       end
+    end
+
+    def pundit_user
+      current_admin_administrator
     end
 end
