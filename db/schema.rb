@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_04_21_100453) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "administrators", force: :cascade do |t|
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 2019_04_21_100453) do
   end
 
   create_table "shops", force: :cascade do |t|
-    t.integer "brand_id"
+    t.bigint "brand_id"
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
