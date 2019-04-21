@@ -1,0 +1,27 @@
+h1 店舗一覧
+
+.org_headArea
+  .row.justify-content-center
+    .col-md-4
+      = link_to '新規作成', new_admin_shop_path, class: 'btn btn-lg btn-success mb-4'
+    .col-md-4.align-self-end
+      .org_pagenate-top = paginate @shops, theme: 'twitter-bootstrap-4'
+    .col-md-4
+      .m_dummy-column
+
+table.table.table-hover
+  thead.thead-inverse
+    tr
+      th ID
+      th 店舗名
+      th
+
+  tbody
+    - @shops.each do |shop|
+      tr
+        td width="5%" = shop.id
+        td width="75%" = shop.name
+        td width="20%"
+          = link_to '編集', edit_admin_shop_path(shop), { class: 'btn btn-outline-success btn-sm' }
+          = link_to '削除', admin_shop_path(shop), class: 'btn btn-outline-danger btn-sm', method: :delete,
+                  data: { confirm: '本当に削除してよろしいですか？', cancel: "キャンセル", commit: "削除する", title: "確認" }

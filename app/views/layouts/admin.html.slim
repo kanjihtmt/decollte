@@ -20,8 +20,8 @@ html
         nav.col-sm-2.col-md-2.d-none.d-sm-block.sidebar
           ul.nav.nav-pills.flex-column
             li.nav-item
-              = link_to 'ブランド管理', '#', { class: 'nav-link' }
-              = link_to '店舗管理', '#', { class: 'nav-link' }
+              = link_to 'ブランド管理', admin_brands_path, { class: 'nav-link' }
+              = link_to '店舗管理', admin_shops_path, { class: 'nav-link' }
               = link_to 'ユーザ管理', '#', { class: 'nav-link' }
               = link_to 'ログアウト', admin_logout_path, { class: 'nav-link' }
         main.col-sm-10.ml-sm-auto.col-md-10.pt-2.pb-3 role="main"

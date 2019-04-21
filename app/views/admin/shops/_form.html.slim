@@ -1,0 +1,19 @@
+.l_content_inner
+  .org_info
+
+  == render 'shared/errors', record: shop
+
+  = form_with model: [:admin, shop], local: true do |f|
+    .form-group
+      = f.label :name, '名前', class: 'require'
+      = f.text_field :name, class: 'form-control'
+
+    .org_info_btns
+      .mol_info_btns.actions
+        - if shop.persisted?
+          .atm_info_btn = link_to '一覧へ戻る', admin_shops_path, class: 'btn btn-outline-secondary'
+          .atm_info_btn = link_to '詳細', shop, class: 'btn btn-outline-info'
+          .atm_info_btn = f.button '更新', class: 'btn btn-success'
+        - else
+          .atm_info_btn = link_to '一覧へ戻る', admin_shops_path, class: 'btn btn-outline-secondary'
+          .atm_info_btn = f.button '登録', class: 'btn btn-success'
