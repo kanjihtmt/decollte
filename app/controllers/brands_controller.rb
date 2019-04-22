@@ -1,5 +1,5 @@
 class BrandsController < ApplicationController
-  after_action :have_brands?
+  after_action :brands?
 
   def index
     @brands = Brand.page(params[:page])
@@ -7,7 +7,7 @@ class BrandsController < ApplicationController
 
   private
 
-    def have_brands?
+    def brands?
       raise ActiveRecord::RecordNotFound if @brands.blank?
     end
 end
