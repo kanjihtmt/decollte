@@ -1,0 +1,14 @@
+h1 ブランド
+
+.container
+  .row
+    - if @brands.present?
+      - @brands.each do |brand|
+        .col-md-12
+          = link_to "/shops/#{brand.name}" do
+            .card.mb-2.shadow-sw
+              = brand.name
+    - else
+      p ブランドは登録されてません
+
+  = paginate @brands, theme: 'twitter-bootstrap-4'
