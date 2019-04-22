@@ -8,4 +8,11 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    = yield
+    header
+      .navbar.navbar-dark.bg-dark.shadow-sm
+        .container.d-flex.justify-content-between
+          = link_to brands_path do
+            strong Decollte
+    section.jumbotron.text-center
+      .container
+        = yield

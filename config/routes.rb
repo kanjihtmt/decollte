@@ -26,8 +26,5 @@ Rails.application.routes.draw do
   end
 
   resources :brands, only: %i(index)
-  scope '/:brand' do
-    resources :shops
-  end
   get 'shops/:brand', to: 'shops#index'
 end

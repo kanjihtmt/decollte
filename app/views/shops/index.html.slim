@@ -1,2 +1,16 @@
-h1 Shops#index
-p Find me in app/views/shops/index.html.slim
+h1 = "#{@brand&.name}の店舗"
+
+.container
+  nav.link.mb-4
+    = link_to 'トップページへ戻る', brands_path, class: 'btn btn-success'
+
+  .row
+    - if @shops.present?
+      - @shops.each do |shop|
+        .col-md-12
+          .card.mb-2.shadow-sw = shop.name
+    - else
+      p = "#{@brand&.name}の店舗は登録されてません"
+
+  = paginate @shops, theme: 'twitter-bootstrap-4'
+
