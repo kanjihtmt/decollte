@@ -56,6 +56,7 @@ http://localhost:3000
 
 - Rubocopでコーディング規約に遵守したコードベースになるようにした
 - CircleCIでRubocopのチェック、テストの実行ができるようにしている
+  - [CircleCIのリンク](https://circleci.com/gh/kanjihtmt/decollte)
 - 複数人体制になれば必ずfeatureブランチを切りPull Requestし、コードレビューを経てmasterにマージすることを想定している
 - コントローラにindex, show, new, edit, create, update, destory以外のアクションは極力使わない
   - RESTに関係ないアクションは極力生やさないようにしている

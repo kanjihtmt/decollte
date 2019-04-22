@@ -54,3 +54,5 @@ ja:
       wrong_length: "は%{count}文字で入力してください"
       other_than: "は%{count}以外の値にしてください"
       email: メールアドレスを入力してください
+
+  authorized_error: '一般管理ユーザはアクセスできません'

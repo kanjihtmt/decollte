@@ -24,4 +24,6 @@ Rails.application.routes.draw do
   scope '/:brand' do
     resources :shops, only: %i(index)
   end
+
+  get '*anything' => 'errors#not_found'
 end

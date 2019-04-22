@@ -2,6 +2,8 @@ class Admin::BaseController < ApplicationController
   include Pundit
   layout 'admin'
 
+  rescue_from Pundit::NotAuthorizedError, with: :rescue403
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_admin_administrator!
 
@@ -22,5 +24,9 @@ class Admin::BaseController < ApplicationController
 
     def pundit_user
       current_admin_administrator
+    end
+
+    def rescue403(e)
+      redirect_to admin_brands_path, alert: t(:authorized_error)
     end
 end
