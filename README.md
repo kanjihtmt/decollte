@@ -59,10 +59,10 @@ http://localhost:3000
 - 複数人体制になれば必ずfeatureブランチを切りPull Requestし、コードレビューを経てmasterにマージすることを想定している
 - コントローラにindex, show, new, edit, create, update, destory以外のアクションは極力使わない
   - RESTに関係ないアクションは極力生やさないようにしている
-  - いわゆるDHHのコントローラのの書き方(参考: https://postd.cc/how-dhh-organizes-his-rails-controllers/)
+  - いわゆるDHHのコントローラの書き方(参考: https://postd.cc/how-dhh-organizes-his-rails-controllers/)
 - 設計パターン
   - Skinny Controller, Fat Modelが基本
   - 今回は小規模な仕様なので使わなかったがモデルが太るのならDecoratorを使用する
+  - form object(ActiveModelをincludeしたクラス)を使用してファットモデルには対応する
   - サービスクラスを使うのはあまり評判が良くないので避けたい
     - モデルとコントローラ間の中間層としてサービスクラスが必要ならサービスの名前の付け方、規約を曖昧にせず使う
-  - form object(ActiveModelをincludeしたクラス)を使用してファットモデルには対応する

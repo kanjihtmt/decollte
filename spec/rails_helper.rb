@@ -60,14 +60,14 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include FactoryBot::Syntax::Methods
-  #config.before(:suite) do
-  #  DatabaseCleaner.strategy = :truncation
-  #  DatabaseCleaner.clean_with(:truncation)
-  #end
-  #config.before(:each) { DatabaseCleaner.start }
-  #config.after(:each) { DatabaseCleaner.clean }
-  #config.before(:all) { DatabaseCleaner.start }
-  #config.after(:all) { DatabaseCleaner.clean }
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with(:truncation)
+  end
+  config.before(:each) { DatabaseCleaner.start }
+  config.after(:each) { DatabaseCleaner.clean }
+  config.before(:all) { DatabaseCleaner.start }
+  config.after(:all) { DatabaseCleaner.clean }
   config.before(:all) { FactoryBot.reload }
 
   config.include(Shoulda::Matchers::ActiveModel, type: :model)

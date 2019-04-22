@@ -4,6 +4,7 @@ describe Admin::ShopsController do
   let(:brand) { create(:brand) }
   let(:shop) { create(:shop, brand: brand) }
   let(:administrator) { create(:administrator) }
+  let(:normal_admininistrator) { create(:administrator, role: :normal) }
 
   before { sign_in administrator, scope: :admin_administrator }
 
@@ -131,6 +132,49 @@ describe Admin::ShopsController do
     it 'shops#indexページへリダイレクトすること' do
       delete :destroy, params: { brand_id: brand.id, id: shop }
       expect(response).to redirect_to admin_brand_shops_path(brand)
+    end
+  end
+
+  describe 'Authorization' do
+    before do
+      sign_out administrator
+      sign_in normal_admininistrator, scope: :admin_administrator
+    end
+
+    it '一般管理者は店舗一覧を表示可能であること' do
+      get :index, params: { brand_id: brand.id }
+      expect(response).to render_template :index
+    end
+
+    it '一般管理者は店舗の新規登録画面が表示できないこと' do
+      expect do
+        get :new, params: { brand_id: brand.id }
+      end.to raise_error Pundit::NotAuthorizedError
+    end
+
+    it '一般管理者は店舗の編集画面が表示できないこと' do
+      expect do
+        get :edit, params: { brand_id: brand.id, id: shop }
+      end.to raise_error Pundit::NotAuthorizedError
+    end
+
+    it '一般管理者は店舗の登録ができないこと' do
+      expect do
+        shop = build(:shop, brand: brand)
+        post :create, params: { brand_id: brand.id, shop: shop.attributes }
+      end.to raise_error Pundit::NotAuthorizedError
+    end
+
+    it '一般管理者は店舗の編集ができないこと' do
+      expect do
+        patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop) }
+      end.to raise_error Pundit::NotAuthorizedError
+    end
+
+    it '一般管理者は店舗の削除ができないこと' do
+      expect do
+        delete :destroy, params: { brand_id: brand.id, id: shop }
+      end.to raise_error Pundit::NotAuthorizedError
     end
   end
 end
