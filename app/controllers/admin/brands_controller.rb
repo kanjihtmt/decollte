@@ -1,6 +1,4 @@
 class Admin::BrandsController < Admin::BaseController
-  before_action :set_brand, only: %i(edit update)
-
   def index
     @brands = Brand.page(params[:page])
   end
@@ -20,10 +18,6 @@ class Admin::BrandsController < Admin::BaseController
   end
 
   private
-
-    def set_brand
-      @brand = Brand.find(params[:id])
-    end
 
     def brand_params
       params.require(:brand).permit(:name)

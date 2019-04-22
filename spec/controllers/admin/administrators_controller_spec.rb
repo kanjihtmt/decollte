@@ -125,39 +125,39 @@ describe Admin::AdministratorsController do
     end
 
     it '一般管理者は管理ユーザ一覧を閲覧できないこと' do
-      expect {
+      expect do
         get :index
-      }.to raise_error Pundit::NotAuthorizedError
+      end.to raise_error Pundit::NotAuthorizedError
     end
 
     it '一般管理者は管理ユーザ作成画面を表示できないこと' do
-      expect {
+      expect do
         get :new
-      }.to raise_error Pundit::NotAuthorizedError
+      end.to raise_error Pundit::NotAuthorizedError
     end
 
     it '一般管理者は管理ユーザ編集画面を表示できないこと' do
-      expect {
+      expect do
         get :edit, params: { id: administrator }
-      }.to raise_error Pundit::NotAuthorizedError
+      end.to raise_error Pundit::NotAuthorizedError
     end
 
     it '一般管理者は管理ユーザを編集できないこと' do
-      expect {
+      expect do
         patch :update, params: { id: administrator, administrator: attributes_for(:administrator) }
-      }.to raise_error Pundit::NotAuthorizedError
+      end.to raise_error Pundit::NotAuthorizedError
     end
 
     it '一般管理者は管理ユーザを作成できないこと' do
-      expect {
+      expect do
         post :create, params: { administrator: attributes_for(:administrator) }
-      }.to raise_error Pundit::NotAuthorizedError
+      end.to raise_error Pundit::NotAuthorizedError
     end
 
     it '一般管理者は管理ユーザを削除できないこと' do
-      expect {
+      expect do
         delete :destroy, params: { id: administrator }
-      }.to raise_error Pundit::NotAuthorizedError
+      end.to raise_error Pundit::NotAuthorizedError
     end
   end
 end

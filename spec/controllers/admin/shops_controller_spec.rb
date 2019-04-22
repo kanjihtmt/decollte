@@ -147,34 +147,34 @@ describe Admin::ShopsController do
     end
 
     it '一般管理者は店舗の新規登録画面が表示できないこと' do
-      expect {
+      expect do
         get :new, params: { brand_id: brand.id }
-      }.to raise_error Pundit::NotAuthorizedError
+      end.to raise_error Pundit::NotAuthorizedError
     end
 
     it '一般管理者は店舗の編集画面が表示できないこと' do
-      expect {
+      expect do
         get :edit, params: { brand_id: brand.id, id: shop }
-      }.to raise_error Pundit::NotAuthorizedError
+      end.to raise_error Pundit::NotAuthorizedError
     end
 
     it '一般管理者は店舗の登録ができないこと' do
-      expect {
+      expect do
         shop = build(:shop, brand: brand)
         post :create, params: { brand_id: brand.id, shop: shop.attributes }
-      }.to raise_error Pundit::NotAuthorizedError
+      end.to raise_error Pundit::NotAuthorizedError
     end
 
     it '一般管理者は店舗の編集ができないこと' do
-      expect {
+      expect do
         patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop) }
-      }.to raise_error Pundit::NotAuthorizedError
+      end.to raise_error Pundit::NotAuthorizedError
     end
 
     it '一般管理者は店舗の削除ができないこと' do
-      expect {
+      expect do
         delete :destroy, params: { brand_id: brand.id, id: shop }
-      }.to raise_error Pundit::NotAuthorizedError
+      end.to raise_error Pundit::NotAuthorizedError
     end
   end
 end
