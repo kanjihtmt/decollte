@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    namespace :sortable do
-      get 'shops/update'
-    end
-  end
   root 'brands#index'
 
   namespace :admin do
@@ -26,5 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :brands, only: %i(index)
-  get 'shops/:brand', to: 'shops#index'
+  scope '/:brand' do
+    resources :shops, only: %i(index)
+  end
 end

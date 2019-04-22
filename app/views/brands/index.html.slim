@@ -5,7 +5,7 @@ h1 ブランド
     - if @brands.present?
       - @brands.each do |brand|
         .col-md-12
-          = link_to "/shops/#{brand.name}" do
+          = link_to shops_path(brand.name) do
             .card.mb-2.shadow-sw
               = brand.name
     - else
