@@ -9,9 +9,6 @@ class Admin::BrandsController < Admin::BaseController
     @brand = Brand.new
   end
 
-  def edit
-  end
-
   def create
     @brand = Brand.new(brand_params)
     if @brand.save
@@ -19,15 +16,6 @@ class Admin::BrandsController < Admin::BaseController
         notice: t(:create, scope: 'flash_message', model: Brand.model_name.human)
     else
       render :new
-    end
-  end
-
-  def update
-    if @brand.update(brand_params)
-      redirect_to admin_brands_path,
-        notice: t(:update, scope: 'flash_message', model: Brand.model_name.human)
-    else
-      render :edit
     end
   end
 

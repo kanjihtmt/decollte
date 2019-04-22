@@ -1,6 +1,7 @@
 class Admin::ShopsController < Admin::BaseController
   before_action :set_shop, only: %i(edit update destroy)
   before_action :set_brand
+  before_action :authorize_shop, only: %i(new create)
 
   def index
     @shops = @brand.shops.order(position: :asc).page(params[:page])
@@ -43,6 +44,11 @@ class Admin::ShopsController < Admin::BaseController
 
     def set_shop
       @shop = Shop.find(params[:id])
+      authorize @shop
+    end
+
+    def authorize_shop
+      authorize Shop
     end
 
     def shop_params

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
         resources :shops, only: %i(update)
       end
     end
-    resources :brands, except: %i(show destroy) do
+    resources :brands, except: %i(show edit update destroy) do
       resources :shops, except: %i(show)
     end
     resources :administrators, except: %i(show)

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe Admin::AdministratorsController do
   let(:administrator) { create(:administrator) }
+  let(:normal_admininistrator) { create(:administrator, role: :normal) }
 
   before { sign_in administrator, scope: :admin_administrator }
 
@@ -114,6 +115,49 @@ describe Admin::AdministratorsController do
         delete :destroy, params: { id: administrator }
         expect(response).to redirect_to admin_administrators_path
       end
+    end
+  end
+
+  describe 'Authorization' do
+    before do
+      sign_out administrator
+      sign_in normal_admininistrator, scope: :admin_administrator
+    end
+
+    it '一般管理者は管理ユーザ一覧を閲覧できないこと' do
+      expect {
+        get :index
+      }.to raise_error Pundit::NotAuthorizedError
+    end
+
+    it '一般管理者は管理ユーザ作成画面を表示できないこと' do
+      expect {
+        get :new
+      }.to raise_error Pundit::NotAuthorizedError
+    end
+
+    it '一般管理者は管理ユーザ編集画面を表示できないこと' do
+      expect {
+        get :edit, params: { id: administrator }
+      }.to raise_error Pundit::NotAuthorizedError
+    end
+
+    it '一般管理者は管理ユーザを編集できないこと' do
+      expect {
+        patch :update, params: { id: administrator, administrator: attributes_for(:administrator) }
+      }.to raise_error Pundit::NotAuthorizedError
+    end
+
+    it '一般管理者は管理ユーザを作成できないこと' do
+      expect {
+        post :create, params: { administrator: attributes_for(:administrator) }
+      }.to raise_error Pundit::NotAuthorizedError
+    end
+
+    it '一般管理者は管理ユーザを削除できないこと' do
+      expect {
+        delete :destroy, params: { id: administrator }
+      }.to raise_error Pundit::NotAuthorizedError
     end
   end
 end
