@@ -4,7 +4,7 @@ class Admin::AdministratorsController < Admin::BaseController
   before_action :check_admin, only: %i(destroy)
 
   def index
-    @administrators = Administrator.page(params[:page])
+    @administrators = Administrator.order(:id).page(params[:page])
   end
 
   def new
