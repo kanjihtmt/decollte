@@ -40,7 +40,8 @@ $ bin/rails s
 $ docker-compose build
 $ docker-compose run web bundle exec rails db:create
 $ docker-compose run web bundle exec rails db:migrate
-
+$ docker-compose run web bundle exec rails db:seed_fu
+$ docker-compose up
 ```
 
 ### 管理画面
