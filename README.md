@@ -37,7 +37,10 @@ $ bin/rails s
 環境: Docker
 
 ```
-TODO
+$ docker-compose build
+$ docker-compose run web bundle exec rails db:create
+$ docker-compose run web bundle exec rails db:migrate
+
 ```
 
 ### 管理画面

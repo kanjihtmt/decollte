@@ -9,13 +9,13 @@ module ErrorHandlers
 
   private
 
-    def rescue404(e)
+    def rescue404
       render 'errors/not_found', status: :not_found
     end
 
     def rescue500(e)
-      binding.pry
       # SentryもしくはBagsnagでエラー通知させる
+      logger.error(e.message)
       render 'errors/internal_server_error', status: :internal_server_error
     end
 end
