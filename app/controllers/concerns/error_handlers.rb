@@ -14,7 +14,7 @@ module ErrorHandlers
     end
 
     def rescue500(e)
-      # SentryもしくはBagsnagでエラー通知させる
+      # 本来はSentryもしくはBagsnagでエラー通知させるが、ここではログを吐くだけにする
       logger.error(e.message)
       render 'errors/internal_server_error', status: :internal_server_error
     end

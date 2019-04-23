@@ -120,7 +120,6 @@ describe Admin::AdministratorsController do
 
   describe 'Authorization' do
     before do
-      sign_out administrator
       sign_in normal_admininistrator, scope: :admin_administrator
     end
 
