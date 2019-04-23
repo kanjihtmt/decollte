@@ -13,7 +13,6 @@
       .mol_info_btns.actions
         - if shop.persisted?
           .atm_info_btn = link_to '一覧へ戻る', admin_brand_shops_path(@brand), class: 'btn btn-outline-secondary'
-          .atm_info_btn = link_to '詳細', shop, class: 'btn btn-outline-info'
           .atm_info_btn = f.button '更新', class: 'btn btn-success'
         - else
           .atm_info_btn = link_to '一覧へ戻る', admin_brand_shops_path(@brand), class: 'btn btn-outline-secondary'

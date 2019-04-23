@@ -1,7 +1,7 @@
 class Admin::AdministratorsController < Admin::BaseController
   before_action :set_administrator, only: %i(edit update destroy)
   before_action :authorize_administrator, only: %i(index new create)
-  before_action :check_admin, only: %i(destroy)
+  before_action :check_admin, only: %i(update destroy)
 
   def index
     @administrators = Administrator.page(params[:page])
@@ -47,7 +47,18 @@ class Admin::AdministratorsController < Admin::BaseController
     end
 
     def check_admin
-      redirect_to admin_administrators_path, notice: t(:can_not_only_admin_user_error) if @administrator.admin? && Administrator.admin.count == 1
+      redirect_to admin_administrators_path, notice: t(:can_not_only_admin_user_error) unless can_delete?
+    end
+
+    def can_delete?
+      return false if @administrator.admin? && Administrator.admin.count == 1
+
+      if params.present?
+        administrator = Administrator.find_by(username: params[:username])
+        params[:role] == :normal && Administrator.admin.count == 1 && administrator.admin?
+      end
+
+      true
     end
 
     def authorize_administrator
