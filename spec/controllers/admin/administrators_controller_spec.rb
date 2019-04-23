@@ -1,17 +1,16 @@
 require 'rails_helper'
 
 describe Admin::AdministratorsController do
-  let(:administrator) {create(:administrator)}
-  let(:normal_administrator) {create(:administrator, role: :normal)}
+  let(:administrator) { create(:administrator) }
+  let(:normal_administrator) { create(:administrator, role: :normal) }
 
   describe 'Admin' do
-
-    before {sign_in administrator, scope: :admin_administrator}
+    before { sign_in administrator, scope: :admin_administrator }
 
     describe 'GET #index' do
       it '管理者のデータを取得できること' do
         administrators = []
-        10.times {administrators << create(:administrator)}
+        10.times { administrators << create(:administrator) }
         get :index
         expect(assigns(:administrators)).to match_array([administrator] + administrators)
       end
@@ -37,24 +36,24 @@ describe Admin::AdministratorsController do
     describe 'POST #create' do
       context '正常系' do
         it '管理者が正しく登録されていること' do
-          expect {post :create, params: {administrator: attributes_for(:administrator)}}
+          expect { post :create, params: { administrator: attributes_for(:administrator) } }
               .to change(Administrator, :count).by(1)
         end
 
         it 'admin/brands#indexにリダイレクトすること' do
-          post :create, params: {administrator: attributes_for(:administrator)}
+          post :create, params: { administrator: attributes_for(:administrator) }
           expect(response).to redirect_to admin_administrators_path
         end
       end
 
       context '異常系' do
         it 'バリデーションエラーでデータベースに保存されないこと' do
-          expect {post :create, params: {administrator: attributes_for(:administrator, username: nil)}}
+          expect { post :create, params: { administrator: attributes_for(:administrator, username: nil) } }
               .not_to change(Administrator, :count)
         end
 
         it 'newテンプレートを表示すること' do
-          post :create, params: {administrator: attributes_for(:administrator, username: nil)}
+          post :create, params: { administrator: attributes_for(:administrator, username: nil) }
           expect(response).to render_template :new
         end
       end
@@ -62,13 +61,13 @@ describe Admin::AdministratorsController do
       describe 'GET #edit' do
         it '@administratorに指定された管理者が割り当てるられていること' do
           administrator = create(:administrator)
-          get :edit, params: {id: administrator}
+          get :edit, params: { id: administrator }
           expect(assigns(:administrator)).to eq administrator
         end
 
         it ':editテンプレートを表示すること' do
           administrator = create(:administrator)
-          get :edit, params: {id: administrator}
+          get :edit, params: { id: administrator }
           expect(response).to render_template :edit
         end
       end
@@ -76,18 +75,18 @@ describe Admin::AdministratorsController do
       describe 'PATCH #update' do
         context '正常系' do
           it '指定した@administratorを取得すること' do
-            patch :update, params: {id: administrator, administrator: attributes_for(:administrator)}
+            patch :update, params: { id: administrator, administrator: attributes_for(:administrator) }
             expect(assigns(:administrator)).to eq(administrator)
           end
 
           it '登録内容が変更されていること' do
-            patch :update, params: {id: administrator, administrator: attributes_for(:administrator, username: 'testuser')}
+            patch :update, params: { id: administrator, administrator: attributes_for(:administrator, username: 'testuser') }
             administrator.reload
             expect(administrator.username).to eq('testuser')
           end
 
           it 'admin/administrators#indexページへリダイレクトされること' do
-            patch :update, params: {id: administrator, administrator: attributes_for(:administrator)}
+            patch :update, params: { id: administrator, administrator: attributes_for(:administrator) }
             expect(response).to redirect_to admin_administrators_path
           end
         end
@@ -95,13 +94,13 @@ describe Admin::AdministratorsController do
         context '異常系' do
           it 'バリデーションエラーでデータベースに保存されないこと' do
             before_save_administrator = administrator
-            patch :update, params: {id: administrator, administrator: attributes_for(:administrator, username: nil)}
+            patch :update, params: { id: administrator, administrator: attributes_for(:administrator, username: nil) }
             administrator.reload
             expect(administrator.username).to eq(before_save_administrator.username)
           end
 
           it 'editテンプレートを表示すること' do
-            patch :update, params: {id: administrator, administrator: attributes_for(:administrator, username: nil)}
+            patch :update, params: { id: administrator, administrator: attributes_for(:administrator, username: nil) }
             expect(response).to render_template :edit
           end
         end
@@ -110,11 +109,11 @@ describe Admin::AdministratorsController do
       describe 'DELETE #destroy' do
         it '指定した店舗が削除されること' do
           administrator = create(:administrator)
-          expect {delete :destroy, params: {id: administrator}}.to change(Administrator, :count).by(-1)
+          expect { delete :destroy, params: { id: administrator } }.to change(Administrator, :count).by(-1)
         end
 
         it 'shops#indexページへリダイレクトすること' do
-          delete :destroy, params: {id: administrator}
+          delete :destroy, params: { id: administrator }
           expect(response).to redirect_to admin_administrators_path
         end
       end
@@ -137,22 +136,22 @@ describe Admin::AdministratorsController do
     end
 
     it '一般管理者は管理ユーザ編集画面を表示できないこと' do
-      get :edit, params: {id: administrator}
+      get :edit, params: { id: administrator }
       expect(response).to redirect_to admin_root_path
     end
 
     it '一般管理者は管理ユーザを編集できないこと' do
-      patch :update, params: {id: administrator, administrator: attributes_for(:administrator)}
+      patch :update, params: { id: administrator, administrator: attributes_for(:administrator) }
       expect(response).to redirect_to admin_root_path
     end
 
     it '一般管理者は管理ユーザを作成できないこと' do
-      post :create, params: {administrator: attributes_for(:administrator)}
+      post :create, params: { administrator: attributes_for(:administrator) }
       expect(response).to redirect_to admin_root_path
     end
 
     it '一般管理者は管理ユーザを削除できないこと' do
-      delete :destroy, params: {id: administrator}
+      delete :destroy, params: { id: administrator }
       expect(response).to redirect_to admin_root_path
     end
   end
