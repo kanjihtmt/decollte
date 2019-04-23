@@ -7,7 +7,7 @@ ja:
         username: アカウント名
         password: パスワード
 
-  can_not_only_admin_user_error: 最後の特権管理者を削除することはできません
+  can_not_only_admin_user_error: 特権管理者を削除することはできません
 
   enums:
     administrator:

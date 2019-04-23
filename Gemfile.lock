@@ -24,7 +24,6 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_decorator (1.1.1)
     activejob (5.2.3)
       activesupport (= 5.2.3)
       globalid (>= 0.3.6)
@@ -311,7 +310,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_decorator
   acts_as_list
   better_errors
   binding_of_caller

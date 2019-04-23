@@ -1,7 +1,7 @@
 class Admin::AdministratorsController < Admin::BaseController
   before_action :set_administrator, only: %i(edit update destroy)
   before_action :authorize_administrator, only: %i(index new create)
-  before_action :check_admin, only: %i(update destroy)
+  before_action :check_admin, only: %i(destroy)
 
   def index
     @administrators = Administrator.page(params[:page])
@@ -52,13 +52,6 @@ class Admin::AdministratorsController < Admin::BaseController
 
     def can_delete?
       return false if @administrator.admin? && Administrator.admin.count == 1
-
-      if params.present?
-        administrator = Administrator.find_by(username: params[:username])
-        params[:role] == :normal && Administrator.admin.count == 1 && administrator.admin?
-      end
-
-      true
     end
 
     def authorize_administrator

@@ -5,9 +5,6 @@
 
   = form_with model: [:admin, administrator], local: true do |f|
     .form-group
-      = f.label :role, '権限', class: 'require'
-      = f.select :role, Administrator.roles_i18n.invert, {}, { class: 'form-control' }
-    .form-group
       = f.label :username, 'アカウント名', class: 'require'
       = f.text_field :username, class: 'form-control'
     .form-group
