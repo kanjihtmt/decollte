@@ -11,4 +11,5 @@ h1 ブランド
     - else
       p ブランドは登録されてません
 
+- if @brands.present?
   = paginate @brands, theme: 'twitter-bootstrap-4'
