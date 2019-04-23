@@ -107,12 +107,13 @@ describe Admin::AdministratorsController do
       end
 
       describe 'DELETE #destroy' do
-        it '指定した店舗が削除されること' do
-          administrator = create(:administrator)
+        it '指定した管理者が削除されること' do
+          administrator = create(:administrator, role: :normal)
           expect { delete :destroy, params: { id: administrator } }.to change(Administrator, :count).by(-1)
         end
 
         it 'shops#indexページへリダイレクトすること' do
+          administrator = create(:administrator, role: :normal)
           delete :destroy, params: { id: administrator }
           expect(response).to redirect_to admin_administrators_path
         end

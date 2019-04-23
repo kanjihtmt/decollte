@@ -47,11 +47,11 @@ class Admin::AdministratorsController < Admin::BaseController
     end
 
     def check_admin
-      redirect_to admin_administrators_path, notice: t(:can_not_only_admin_user_error) unless can_delete?
+      redirect_to admin_administrators_path, notice: t(:can_not_only_admin_user_error) if can_not_delete?
     end
 
-    def can_delete?
-      return false if @administrator.admin? && Administrator.admin.count == 1
+    def can_not_delete?
+      @administrator.admin? && Administrator.admin.count == 1
     end
 
     def authorize_administrator

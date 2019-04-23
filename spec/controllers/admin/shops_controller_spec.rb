@@ -23,21 +23,6 @@ describe Admin::ShopsController do
       end
     end
 
-    describe 'GET #index pagination' do
-      it 'ページングが正しく機能していること' do
-        shops = []
-        50.times { shops << create(:shop, brand: brand) }
-        get :index, params: { brand_id: brand.id }
-        expect(assigns(:shops).count).to eq(25)
-        expect(assigns(:shops).next_page).to eq(2)
-
-        get :index, params: { page: 2, brand_id: brand.id }
-        expect(assigns(:shops).count).to eq(25)
-        expect(assigns(:shops).next_page).to eq(nil)
-        expect(assigns(:shops).prev_page).to eq(1)
-      end
-    end
-
     describe 'GET #new' do
       it '@shopに空のデータが割り当てられていること' do
         get :new, params: { brand_id: brand.id }
