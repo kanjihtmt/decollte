@@ -27,6 +27,6 @@ class Admin::BaseController < ApplicationController
     end
 
     def rescue403
-      redirect_to admin_brands_path, alert: t(:authorized_error)
+      redirect_to admin_root_path, alert: t(:authorized_error)
     end
 end
