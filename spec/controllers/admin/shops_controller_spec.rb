@@ -4,141 +4,142 @@ describe Admin::ShopsController do
   let(:brand) { create(:brand) }
   let(:shop) { create(:shop, brand: brand) }
   let(:administrator) { create(:administrator) }
-  let(:normal_admininistrator) { create(:administrator, role: :normal) }
+  let(:normal_administrator) { create(:administrator, role: :normal) }
 
-  before { sign_in administrator, scope: :admin_administrator }
+  describe 'Admin' do
+    before { sign_in administrator, scope: :admin_administrator }
 
-  describe 'GET #index' do
-    it '店舗データを取得していること' do
-      shops = []
-      10.times { shops << create(:shop, brand: brand) }
-      get :index, params: { brand_id: brand.id }
-      expect(assigns(:shops)).to match_array(shops)
-    end
-
-    it 'indexテンプレートを表示すること' do
-      get :index, params: { brand_id: brand.id }
-      expect(response).to render_template :index
-    end
-  end
-
-  describe 'GET #index pagination' do
-    it 'ページングが正しく機能していること' do
-      shops = []
-      50.times { shops << create(:shop, brand: brand) }
-      get :index, params: { brand_id: brand.id }
-      expect(assigns(:shops).count).to eq(25)
-      expect(assigns(:shops).next_page).to eq(2)
-
-      get :index, params: { page: 2, brand_id: brand.id }
-      expect(assigns(:shops).count).to eq(25)
-      expect(assigns(:shops).next_page).to eq(nil)
-      expect(assigns(:shops).prev_page).to eq(1)
-    end
-  end
-
-  describe 'GET #new' do
-    it '@shopに空のデータが割り当てられていること' do
-      get :new, params: { brand_id: brand.id }
-      expect(assigns(:shop)).to be_a_new(Shop)
-    end
-
-    it ':new テンプレートを表示すること' do
-      get :new, params: { brand_id: brand.id }
-      expect(response).to render_template :new
-    end
-  end
-
-  describe 'POST #create' do
-    context '正常系' do
-      it 'Shopが正しく登録されていること' do
-        shop = build(:shop, brand: brand)
-        expect { post :create, params: { brand_id: brand.id, shop: shop.attributes } }
-            .to change(Shop, :count).by(1)
+    describe 'GET #index' do
+      it '店舗データを取得していること' do
+        shops = []
+        10.times { shops << create(:shop, brand: brand) }
+        get :index, params: { brand_id: brand.id }
+        expect(assigns(:shops)).to match_array(shops)
       end
 
-      it 'admin/shops#indexにリダイレクトすること' do
-        shop = build(:shop, brand: brand)
-        post :create, params: { brand_id: brand.id, shop: shop.attributes }
-        expect(response).to redirect_to admin_brand_shops_path(brand)
+      it 'indexテンプレートを表示すること' do
+        get :index, params: { brand_id: brand.id }
+        expect(response).to render_template :index
       end
     end
 
-    context '異常系' do
-      it 'バリデーションエラーでデータベースに保存されないこと' do
-        expect { post :create, params: { brand_id: brand.id, shop: attributes_for(:shop, name: nil) } }
-            .not_to change(Shop, :count)
+    describe 'GET #index pagination' do
+      it 'ページングが正しく機能していること' do
+        shops = []
+        50.times { shops << create(:shop, brand: brand) }
+        get :index, params: { brand_id: brand.id }
+        expect(assigns(:shops).count).to eq(25)
+        expect(assigns(:shops).next_page).to eq(2)
+
+        get :index, params: { page: 2, brand_id: brand.id }
+        expect(assigns(:shops).count).to eq(25)
+        expect(assigns(:shops).next_page).to eq(nil)
+        expect(assigns(:shops).prev_page).to eq(1)
+      end
+    end
+
+    describe 'GET #new' do
+      it '@shopに空のデータが割り当てられていること' do
+        get :new, params: { brand_id: brand.id }
+        expect(assigns(:shop)).to be_a_new(Shop)
       end
 
-      it 'newテンプレートを表示すること' do
-        post :create, params: { brand_id: brand.id, shop: attributes_for(:shop, name: nil) }
+      it ':new テンプレートを表示すること' do
+        get :new, params: { brand_id: brand.id }
         expect(response).to render_template :new
       end
     end
-  end
 
-  describe 'GET #edit' do
-    it '@shopに指定されたデータが割り当てられていること' do
-      get :edit, params: { brand_id: brand.id, id: shop }
-      expect(assigns(:shop)).to eq shop
-    end
+    describe 'POST #create' do
+      context '正常系' do
+        it 'Shopが正しく登録されていること' do
+          shop = build(:shop, brand: brand)
+          expect { post :create, params: { brand_id: brand.id, shop: shop.attributes } }
+              .to change(Shop, :count).by(1)
+        end
 
-    it ':editテンプレートを表示すること' do
-      get :edit, params: { brand_id: brand.id, id: shop }
-      expect(response).to render_template :edit
-    end
-  end
-
-  describe 'PATCH #update' do
-    context '正常系' do
-      it '指定した@shopを取得すること' do
-        patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop) }
-        expect(assigns(:shop)).to eq(shop)
+        it 'admin/shops#indexにリダイレクトすること' do
+          shop = build(:shop, brand: brand)
+          post :create, params: { brand_id: brand.id, shop: shop.attributes }
+          expect(response).to redirect_to admin_brand_shops_path(brand)
+        end
       end
 
-      it '登録内容が変更されていること' do
-        patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop, name: '店舗1') }
-        shop.reload
-        expect(shop.name).to eq('店舗1')
-      end
+      context '異常系' do
+        it 'バリデーションエラーでデータベースに保存されないこと' do
+          expect { post :create, params: { brand_id: brand.id, shop: attributes_for(:shop, name: nil) } }
+              .not_to change(Shop, :count)
+        end
 
-      it 'admin/shops#indexページへリダイレクトされること' do
-        patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop) }
-        expect(response).to redirect_to admin_brand_shops_path(brand)
+        it 'newテンプレートを表示すること' do
+          post :create, params: { brand_id: brand.id, shop: attributes_for(:shop, name: nil) }
+          expect(response).to render_template :new
+        end
       end
     end
 
-    context '異常系' do
-      it 'バリデーションエラーでデータベースに保存されないこと' do
-        before_save_shop = shop
-        patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop, name: nil) }
-        shop.reload
-        expect(shop.name).to eq(before_save_shop.name)
+    describe 'GET #edit' do
+      it '@shopに指定されたデータが割り当てられていること' do
+        get :edit, params: { brand_id: brand.id, id: shop }
+        expect(assigns(:shop)).to eq shop
       end
 
-      it 'editテンプレートを表示すること' do
-        patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop, name: nil) }
+      it ':editテンプレートを表示すること' do
+        get :edit, params: { brand_id: brand.id, id: shop }
         expect(response).to render_template :edit
       end
     end
-  end
 
-  describe 'DELETE #destroy' do
-    it '指定した店舗が削除されること' do
-      shop = create(:shop, brand: brand)
-      expect { delete :destroy, params: { brand_id: brand.id, id: shop } }.to change(Shop, :count).by(-1)
+    describe 'PATCH #update' do
+      context '正常系' do
+        it '指定した@shopを取得すること' do
+          patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop) }
+          expect(assigns(:shop)).to eq(shop)
+        end
+
+        it '登録内容が変更されていること' do
+          patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop, name: '店舗1') }
+          shop.reload
+          expect(shop.name).to eq('店舗1')
+        end
+
+        it 'admin/shops#indexページへリダイレクトされること' do
+          patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop) }
+          expect(response).to redirect_to admin_brand_shops_path(brand)
+        end
+      end
+
+      context '異常系' do
+        it 'バリデーションエラーでデータベースに保存されないこと' do
+          before_save_shop = shop
+          patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop, name: nil) }
+          shop.reload
+          expect(shop.name).to eq(before_save_shop.name)
+        end
+
+        it 'editテンプレートを表示すること' do
+          patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop, name: nil) }
+          expect(response).to render_template :edit
+        end
+      end
     end
 
-    it 'shops#indexページへリダイレクトすること' do
-      delete :destroy, params: { brand_id: brand.id, id: shop }
-      expect(response).to redirect_to admin_brand_shops_path(brand)
+    describe 'DELETE #destroy' do
+      it '指定した店舗が削除されること' do
+        shop = create(:shop, brand: brand)
+        expect { delete :destroy, params: { brand_id: brand.id, id: shop } }.to change(Shop, :count).by(-1)
+      end
+
+      it 'shops#indexページへリダイレクトすること' do
+        delete :destroy, params: { brand_id: brand.id, id: shop }
+        expect(response).to redirect_to admin_brand_shops_path(brand)
+      end
     end
   end
 
   describe 'Authorization' do
     before do
-      sign_out administrator
-      sign_in normal_admininistrator, scope: :admin_administrator
+      sign_in normal_administrator, scope: :admin_administrator
     end
 
     it '一般管理者は店舗一覧を表示可能であること' do
@@ -147,34 +148,29 @@ describe Admin::ShopsController do
     end
 
     it '一般管理者は店舗の新規登録画面が表示できないこと' do
-      expect do
-        get :new, params: { brand_id: brand.id }
-      end.to raise_error Pundit::NotAuthorizedError
+      get :new, params: { brand_id: brand.id }
+      expect(response).to redirect_to admin_root_path
     end
 
     it '一般管理者は店舗の編集画面が表示できないこと' do
-      expect do
-        get :edit, params: { brand_id: brand.id, id: shop }
-      end.to raise_error Pundit::NotAuthorizedError
+      get :edit, params: { brand_id: brand.id, id: shop }
+      expect(response).to redirect_to admin_root_path
     end
 
     it '一般管理者は店舗の登録ができないこと' do
-      expect do
-        shop = build(:shop, brand: brand)
-        post :create, params: { brand_id: brand.id, shop: shop.attributes }
-      end.to raise_error Pundit::NotAuthorizedError
+      shop = build(:shop, brand: brand)
+      post :create, params: { brand_id: brand.id, shop: shop.attributes }
+      expect(response).to redirect_to admin_root_path
     end
 
     it '一般管理者は店舗の編集ができないこと' do
-      expect do
-        patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop) }
-      end.to raise_error Pundit::NotAuthorizedError
+      patch :update, params: { brand_id: brand.id, id: shop, shop: attributes_for(:shop) }
+      expect(response).to redirect_to admin_root_path
     end
 
     it '一般管理者は店舗の削除ができないこと' do
-      expect do
-        delete :destroy, params: { brand_id: brand.id, id: shop }
-      end.to raise_error Pundit::NotAuthorizedError
+      delete :destroy, params: { brand_id: brand.id, id: shop }
+      expect(response).to redirect_to admin_root_path
     end
   end
 end
