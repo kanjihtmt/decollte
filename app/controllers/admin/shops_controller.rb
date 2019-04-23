@@ -4,7 +4,7 @@ class Admin::ShopsController < Admin::BaseController
   before_action :authorize_shop, only: %i(new create)
 
   def index
-    @shops = @brand.shops.order(position: :asc).page(params[:page])
+    @shops = @brand.shops.order(position: :asc)
   end
 
   def new
