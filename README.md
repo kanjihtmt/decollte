@@ -28,6 +28,7 @@
 
 ```
 $ cd your-project-path
+$ mv config/database.default config/database.yml
 $ bin/rails db:create
 $ bin/rails db:migrate
 $ bin/rails db:seed_fu
@@ -37,6 +38,8 @@ $ bin/rails s
 環境: Docker
 
 ```
+$ cd your-project-path
+$ mv config/database.default config/database.yml
 $ docker-compose build
 $ docker-compose run web bundle exec rails db:create
 $ docker-compose run web bundle exec rails db:migrate
